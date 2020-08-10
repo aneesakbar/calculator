@@ -1,0 +1,118 @@
+<html>
+<head>
+	<title>Calculator</title>
+	<style>
+		body{
+			background-color : skyblue;
+		}
+		.container{
+			border : 1px solid green;
+			padding : 10px;
+			margin : 5px;
+			width : 30%;
+			margin-left : 30%;
+			margin-top : 10%;
+		}
+		#num1{
+			height : 30px;
+			margin-left : 31px;
+		}
+		#num2{
+			height : 30px;
+		}
+		#operator{
+			width : 150px;
+			height : 30px;
+			margin-left : 43px;
+		}
+		#button{
+			width : 100px;
+			height : 30px;
+			border : none;
+			/*background-color : black;*/
+			/*color : white;*/
+			/*font-size : 20px;*/
+		}
+		#button:hover{
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body onload="selectPlusOperator()">
+	<div class="container">
+		Enter Ist Number : <input type="text" id="num1" placeholder="Enter Ist Number"/><br><br>
+		Enter Second Number : <input type="text" id="num2" placeholder="Enter Second Number"/><br><br>
+		Select Operator : <select id="operator" onchange="selectOperator()">
+			<option id="selectoption">Select Operator</option>
+			<option>+</option>
+			<option>-</option>
+			<option>*</option>
+			<option>/</option>
+		</select><br><br>
+		
+		<button onclick="resultFun()" id="button">Result</button>
+		
+		<p id="resultTag">Your Answer is : </p>
+	</div>
+	<script>
+		var num1,num2,result;
+		function selectPlusOperator(){
+			document.getElementById("selectoption").selected=true;
+			isOperatorSelected();
+		}	
+		
+		function isOperatorSelected(){
+			var operator = document.getElementById("operator");
+			operator.options[operator.selectedIndex].innerHTML = "Select Operator";
+		}
+		
+		function selectOperator(){
+			var operator = document.getElementById("operator");
+			//var op = operator.options[operator.selectedIndex].innerHTML;
+			//alert(op);
+			
+			num1 = document.getElementById('num1').value;
+			num2 = document.getElementById('num2').value;
+			var resultTag = document.getElementById('resultTag');
+			
+			
+			if(num1.length <=0 || num2.length <=0){
+				alert("Enter Ist Number And Second Number");
+				document.getElementById('button').disabled=true;
+				document.getElementById("selectoption").selected=true;
+				isOperatorSelected();
+				resultTag.innerHTML = "Your Answer is : (Button Disabled)";
+			}else{
+				document.getElementById('button').disabled=false;
+				switch(operator.selectedIndex){
+					case 1 : 
+						result = parseInt(num1)+parseInt(num2);
+						break;
+					case 2 : 
+						result = parseInt(num1)-parseInt(num2);
+						break;
+					case 3 :
+						result = parseInt(num1)*parseInt(num2);
+						break;
+					case 4 : 
+						result = parseInt(num1)/parseInt(num2);
+						break;
+					//default : result = parseInt(num1)+parseInt(num2);
+				}
+			}
+		}
+		
+		function resultFun(){
+			//document.getElementById('button').disabled=false;
+			var operator = document.getElementById("operator");
+			if(operator.selectedIndex == 0){
+				alert("Select Operator");
+			}
+			else{
+				resultTag.innerHTML = "Your Answer is : "+result;
+			}
+			//resultTag.innerHTML = "Your Answer is : "+result;
+		}
+	</script>
+</body>
+</html>
